@@ -1,26 +1,103 @@
 package gui;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import application.Main;
 import gui.util.Alerts;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.VBox;
 
-public class ViewControllerFinanceiro implements Initializable{
+public class ViewControllerFinanceiro implements Initializable {
+
+	@FXML
+	private MenuItem mnuCadPapeis;
+	@FXML
+	private MenuItem mnuCadCarteira;
+	@FXML
+	private MenuItem mnuCadRecbtos;
+	@FXML
+	private MenuItem mnuCadCotacaoPapeisDia;
+	@FXML
+	private MenuItem mnuConsCarteira;
+	@FXML
+	private MenuItem mnuConsRecbtos;
+	@FXML
+	private MenuItem mnuAjudaSobre;
+
+	@FXML
+	public void onMnuCadPapeisAction() {
+		loadView("/gui/PapelList.fxml");
+	}
+
+	@FXML
+	public void onMnuCadCarteiraAction() {
+		Alerts.showAlert("Papéis", null, "Cadastro da Carteira", AlertType.WARNING);
+	}
 	
 	@FXML
-	private MenuItem mnuPapeis;
-	@FXML
-	public void onMnuPapeisAction() {
-		Alerts.showAlert("Papéis", null, "Cadastro de Papéis", AlertType.WARNING);
+	public void onMnuCadRecbtosAction() {
+		Alerts.showAlert("Papéis", null, "Cadastro de Recebimentos", AlertType.WARNING);
 	}
+
+	@FXML
+	public void onMnuCadCotacaoPapeisDiaAction() {
+		Alerts.showAlert("Papéis", null, "Cadastro Cotação de Papéis no Dia", AlertType.WARNING);
+	}
+
+	@FXML
+	public void onMnuConsCarteiraAction() {
+		Alerts.showAlert("Consulta", null, "Consulta Carteira", AlertType.WARNING);
+	}
+
+	@FXML
+	public void onMnuConsRecbtosAction() {
+		Alerts.showAlert("Consulta", null, "Consulta de Recebimentos", AlertType.WARNING);
+	}
+
+	@FXML
+	public void onMnuAjudaSobre() {
+		loadView("/gui/Sobre.fxml");
+	}
+
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		
-		//Constraints.setFieldEmail(null);
+
+		// Constraints.setFieldEmail(null);
+	}
+
+	private void loadView(String absoluteName) {
+		try {
+			// carrega a janela "Sobre.fxml"
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
+			VBox newVBox = loader.load();
+			
+			// mostrar a janela "Sobre.fxml" dentro da janela principal
+			
+			//   1- Obtem a janela principal
+			Scene mainScene = Main.getMainScene();
+			VBox mainVBox =   (VBox) ((ScrollPane) mainScene.getRoot()).getContent();
+			
+			Node mainMenu = mainVBox.getChildren().get(0);
+			// limpar todos os filhos de VBox
+			mainVBox.getChildren().clear();
+			
+			mainVBox.getChildren().add(mainMenu);
+			// adicionar os filhos do VBox da janela "Sobre"
+			mainVBox.getChildren().addAll(newVBox.getChildren());
+				
+		}catch(IOException e) {
+			Alerts.showAlert("IOException", "Error loading view", e.getMessage(), Alert.AlertType.ERROR);
+		}
 	}
 
 }

@@ -1,43 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.ToolBar?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ViewControllerFinanceiro">
-   <bottom>
-      <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-        <items>
-          <Button mnemonicParsing="false" text="Button" textAlignment="CENTER" />
-        </items>
-      </ToolBar>
-   </bottom>
-   <top>
-      <MenuBar BorderPane.alignment="CENTER">
-        <menus>
-          <Menu mnemonicParsing="false" text="Cadastro">
-            <items>
-              <MenuItem fx:id="mnuPapeis" mnemonicParsing="false" onAction="#onMnuPapeisAction" text="Papéis" />
-                  <MenuItem mnemonicParsing="false" text="Movimentação de Papéis" />
-                  <MenuItem mnemonicParsing="false" text="Recebimentos" />
-                  <MenuItem mnemonicParsing="false" text="Cotação dos Papéis" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Consulta">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Papéis" />
-                  <MenuItem mnemonicParsing="false" text="Recebimentos" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Ajuda">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Sobre..." />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-   </top>
-</BorderPane>
+
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="501.0" prefWidth="947.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ViewControllerFinanceiro">
+   <content>
+      <VBox prefHeight="486.0" prefWidth="933.0">
+         <children>
+            <MenuBar>
+              <menus>
+                <Menu mnemonicParsing="false" text="Cadastro">
+                  <items>
+                    <MenuItem fx:id="mnuCadPapeis" mnemonicParsing="false" onAction="#onMnuCadPapeisAction" text="Papéis" />
+                        <MenuItem fx:id="mnuCadCarteira" mnemonicParsing="false" onAction="#onMnuCadCarteiraAction" text="Carteira" />
+                        <MenuItem fx:id="mnuCadRecbtos" mnemonicParsing="false" onAction="#onMnuCadRecbtosAction" text="Recebimentos" />
+                        <MenuItem fx:id="mnuCadCotacaoPapeisDia" mnemonicParsing="false" onAction="#onMnuCadCotacaoPapeisDiaAction" text="Cotação dos Papéis no Dia" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Consulta">
+                  <items>
+                        <MenuItem fx:id="mnuConsCarteira" mnemonicParsing="false" onAction="#onMnuConsCarteiraAction" text="Carteira" />
+                    <MenuItem fx:id="mnuConsRecbtos" mnemonicParsing="false" onAction="#onMnuConsRecbtosAction" text="Recebimentos" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Ajuda">
+                  <items>
+                    <MenuItem fx:id="mnuAjudaSobre" mnemonicParsing="false" onAction="#onMnuAjudaSobre" text="Sobre..." />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+         </children>
+      </VBox>
+   </content>
+</ScrollPane>
