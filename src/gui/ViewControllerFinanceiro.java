@@ -16,6 +16,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
+import model.services.PapelService;
 
 public class ViewControllerFinanceiro implements Initializable {
 
@@ -36,7 +37,7 @@ public class ViewControllerFinanceiro implements Initializable {
 
 	@FXML
 	public void onMnuCadPapeisAction() {
-		loadView("/gui/PapelList.fxml");
+		loadView2("/gui/PapelList.fxml");
 	}
 
 	@FXML
@@ -99,5 +100,35 @@ public class ViewControllerFinanceiro implements Initializable {
 			Alerts.showAlert("IOException", "Error loading view", e.getMessage(), Alert.AlertType.ERROR);
 		}
 	}
+	
+	private void loadView2(String absoluteName) {
+		try {
+			// carrega a janela "Sobre.fxml"
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
+			VBox newVBox = loader.load();
+			
+			// mostrar a janela "Sobre.fxml" dentro da janela principal
+			
+			//   1- Obtem a janela principal
+			Scene mainScene = Main.getMainScene();
+			VBox mainVBox =   (VBox) ((ScrollPane) mainScene.getRoot()).getContent();
+			
+			Node mainMenu = mainVBox.getChildren().get(0);
+			// limpar todos os filhos de VBox
+			mainVBox.getChildren().clear();
+			
+			mainVBox.getChildren().add(mainMenu);
+			// adicionar os filhos do VBox da janela "Sobre"
+			mainVBox.getChildren().addAll(newVBox.getChildren());
+			
+			PapelListController controller = loader.getController();
+			controller.setPapelService(new PapelService());
+			controller.updateTableView();
+				
+		}catch(IOException e) {
+			Alerts.showAlert("IOException", "Error loading view", e.getMessage(), Alert.AlertType.ERROR);
+		}
+	}
+
 
 }
