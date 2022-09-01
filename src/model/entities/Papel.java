@@ -10,16 +10,28 @@ public class Papel implements Serializable{
 	private Integer id_Papel;
 	private String tx_Papel;
 	private String tx_Descricao;
-	private String tx_Ramo;
+	private String tx_RamoNegocios;
+	private String dt_Cadastro;
+	private Integer id_Resp;
 	
 	public Papel() {
 	}
 
-	public Papel(Integer id_Papel, String tx_Papel, String tx_Descricao, String tx_Ramo) {
+	public Papel(Integer id_Papel, String tx_Papel, String tx_Descricao, String tx_RamoNegocios, String dt_Cadastro, Integer id_Resp) {
 		this.id_Papel = id_Papel;
 		this.tx_Papel = tx_Papel;
 		this.tx_Descricao = tx_Descricao;
-		this.tx_Ramo = tx_Ramo;
+		this.tx_RamoNegocios = tx_RamoNegocios;
+		this.dt_Cadastro = dt_Cadastro;
+		this.id_Resp = id_Resp;
+	}
+	
+	public Integer getId_Papel() {
+		return id_Papel;
+	}
+
+	public void setId_Papel(Integer id_Papel) {
+		this.id_Papel = id_Papel;
 	}
 
 	public String getTx_Papel() {
@@ -34,21 +46,37 @@ public class Papel implements Serializable{
 		return tx_Descricao;
 	}
 
-	public void setTx_DescrPapel(String tx_Descricao) {
+	public void setTx_Descricao(String tx_Descricao) {
 		this.tx_Descricao = tx_Descricao;
 	}
 
-	public String getTx_Ramo() {
-		return tx_Ramo;
+	public String getTx_RamoNegocios() {
+		return tx_RamoNegocios;
 	}
 
-	public void setTx_Ramo(String tx_Ramo) {
-		this.tx_Ramo = tx_Ramo;
+	public void setTx_RamoNegocios(String tx_RamoNegocios) {
+		this.tx_RamoNegocios = tx_RamoNegocios;
+	}
+
+	public String getDt_Cadastro() {
+		return dt_Cadastro;
+	}
+
+	public void setDt_Cadastro(String dt_Cadastro) {
+		this.dt_Cadastro = dt_Cadastro;
+	}
+
+	public Integer getId_Resp() {
+		return id_Resp;
+	}
+
+	public void setId_Resp(Integer id_Resp) {
+		this.id_Resp = id_Resp;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(tx_Descricao, tx_Papel, tx_Ramo);
+		return Objects.hash(tx_Descricao, tx_Papel, tx_RamoNegocios);
 	}
 
 	@Override
@@ -61,13 +89,12 @@ public class Papel implements Serializable{
 			return false;
 		Papel other = (Papel) obj;
 		return Objects.equals(tx_Descricao, other.tx_Descricao) && Objects.equals(tx_Papel, other.tx_Papel)
-				&& Objects.equals(tx_Ramo, other.tx_Ramo);
+				&& Objects.equals(tx_RamoNegocios, other.tx_RamoNegocios);
 	}
 
 	@Override
 	public String toString() {
 		return "Papel [id_Papel=" + id_Papel + ", tx_Papel=" + tx_Papel + ", tx_Descricao=" + tx_Descricao
-				+ ", tx_Ramo=" + tx_Ramo + "]";
+				+ ", tx_RamoNegocios=" + tx_RamoNegocios + ", dt_Cadastro=" + dt_Cadastro + ", id_Resp=" + id_Resp + "]";
 	}
-	
 }

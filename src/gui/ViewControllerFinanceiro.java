@@ -3,6 +3,7 @@ package gui;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 
 import application.Main;
 import gui.util.Alerts;
@@ -37,7 +38,11 @@ public class ViewControllerFinanceiro implements Initializable {
 
 	@FXML
 	public void onMnuCadPapeisAction() {
-		loadView2("/gui/PapelList.fxml");
+		loadView("/gui/PapelList.fxml", (PapelListController controller) -> {
+			controller.setPapelService(new PapelService());
+			controller.updateTableView();
+		
+		});
 	}
 
 	@FXML
@@ -67,7 +72,7 @@ public class ViewControllerFinanceiro implements Initializable {
 
 	@FXML
 	public void onMnuAjudaSobre() {
-		loadView("/gui/Sobre.fxml");
+		loadView("/gui/Sobre.fxml", x -> {});
 	}
 
 	@Override
@@ -76,32 +81,7 @@ public class ViewControllerFinanceiro implements Initializable {
 		// Constraints.setFieldEmail(null);
 	}
 
-	private void loadView(String absoluteName) {
-		try {
-			// carrega a janela "Sobre.fxml"
-			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
-			VBox newVBox = loader.load();
-			
-			// mostrar a janela "Sobre.fxml" dentro da janela principal
-			
-			//   1- Obtem a janela principal
-			Scene mainScene = Main.getMainScene();
-			VBox mainVBox =   (VBox) ((ScrollPane) mainScene.getRoot()).getContent();
-			
-			Node mainMenu = mainVBox.getChildren().get(0);
-			// limpar todos os filhos de VBox
-			mainVBox.getChildren().clear();
-			
-			mainVBox.getChildren().add(mainMenu);
-			// adicionar os filhos do VBox da janela "Sobre"
-			mainVBox.getChildren().addAll(newVBox.getChildren());
-				
-		}catch(IOException e) {
-			Alerts.showAlert("IOException", "Error loading view", e.getMessage(), Alert.AlertType.ERROR);
-		}
-	}
-	
-	private void loadView2(String absoluteName) {
+	private synchronized <T> void loadView(String absoluteName, Consumer<T> initializingAction) {
 		try {
 			// carrega a janela "Sobre.fxml"
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
@@ -121,14 +101,13 @@ public class ViewControllerFinanceiro implements Initializable {
 			// adicionar os filhos do VBox da janela "Sobre"
 			mainVBox.getChildren().addAll(newVBox.getChildren());
 			
-			PapelListController controller = loader.getController();
-			controller.setPapelService(new PapelService());
-			controller.updateTableView();
+			//executa a função passada como parâmetro
+			T controller = loader.getController();
+			initializingAction.accept(controller); 
 				
 		}catch(IOException e) {
 			Alerts.showAlert("IOException", "Error loading view", e.getMessage(), Alert.AlertType.ERROR);
 		}
 	}
-
 
 }

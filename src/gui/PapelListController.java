@@ -29,7 +29,9 @@ public class PapelListController implements Initializable{
 	@FXML
 	private TableColumn<Papel, String> tableColumnDescricao;
 	@FXML
-	private TableColumn<Papel, String> tableColumnRamo;
+	private TableColumn<Papel, String> tableColumnRamoNegocios;
+	@FXML
+	private TableColumn<Papel, String> tableColumnDtCadastro;
 
 	@FXML
 	private Button btnAdicionar;
@@ -57,7 +59,9 @@ public class PapelListController implements Initializable{
 	private void initializeNodes() {
 		tableColumnPapel.setCellValueFactory(new PropertyValueFactory<>("tx_Papel"));
 		tableColumnDescricao.setCellValueFactory(new PropertyValueFactory<>("tx_Descricao"));
-		tableColumnRamo.setCellValueFactory(new PropertyValueFactory<>("tx_Ramo"));
+		tableColumnRamoNegocios.setCellValueFactory(new PropertyValueFactory<>("tx_RamoNegocios"));
+		
+		tableColumnDtCadastro.setCellValueFactory(new PropertyValueFactory<>("dt_Cadastro"));
 		
 		//para ajustar o tableview na janela
 		Stage stage = (Stage) Main.getMainScene().getWindow();

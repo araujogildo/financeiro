@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="357.0" prefWidth="549.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.PapelListController">
+<VBox prefHeight="357.0" prefWidth="712.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.PapelListController">
    <children>
       <Label text="Cadastro de Papéis" textFill="#0509f5">
          <font>
@@ -24,11 +24,12 @@
           <Button fx:id="btnAdicionar" mnemonicParsing="false" onAction="#onBtnAdicionarAction" text="Adicionar" />
         </items>
       </ToolBar>
-      <TableView fx:id="tableViewPapel" prefHeight="200.0" prefWidth="200.0">
+      <TableView fx:id="tableViewPapel" prefHeight="200.0" prefWidth="500.0">
         <columns>
           <TableColumn fx:id="tableColumnPapel" prefWidth="75.0" text="Papel" />
-          <TableColumn fx:id="tableColumnDescricao" prefWidth="133.0" text="Descrição" />
-            <TableColumn fx:id="tableColumnRamo" prefWidth="338.0" text="Ramo/Atividade" />
+          <TableColumn fx:id="tableColumnDescricao" prefWidth="300.0" text="Descrição" />
+            <TableColumn fx:id="tableColumnRamoNegocios" prefWidth="211.0" text="Ramo/Atividade" />
+            <TableColumn fx:id="tableColumnDtCadastro" prefWidth="117.0" text="Data Cadastro" />
         </columns>
       </TableView>
    </children>
