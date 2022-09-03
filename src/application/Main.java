@@ -15,7 +15,7 @@ public class Main extends Application {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/ViewFinanceiro.fxml"));
 			ScrollPane scrollPane = loader.load();			
-			mainScene  = new Scene(scrollPane, 708, 400);
+			mainScene  = new Scene(scrollPane, 796, 400);
 			
 			scrollPane.setFitToHeight(true);
 			scrollPane.setFitToWidth(true);

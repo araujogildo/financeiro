@@ -52,7 +52,7 @@
             </Label>
             <TextField fx:id="txtPapel" maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="60.0" GridPane.columnIndex="1" />
             <TextField fx:id="txtDescricao" maxWidth="-Infinity" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="txtRamoNegocio" maxWidth="-Infinity" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="txtRamoNegocios" maxWidth="-Infinity" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.rowIndex="3">
                <children>
                   <Button fx:id="btnSalvar" mnemonicParsing="false" onAction="#onBtnSalvarAction" text="Salvar" />
@@ -92,7 +92,7 @@
                   <Insets left="5.0" />
                </GridPane.margin>
             </Label>
-            <TextField fx:id="txtIdPapel" maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="10.0" GridPane.halignment="RIGHT">
+            <TextField fx:id="txtIdPapel" maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="45.0" GridPane.halignment="RIGHT">
                <GridPane.margin>
                   <Insets right="5.0" />
                </GridPane.margin>

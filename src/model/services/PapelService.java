@@ -15,10 +15,14 @@ public class PapelService {
 	}
 	
 	public void saveOrUpdate(Papel obj) {
-		if(obj.getId_Papel() == 0) {
+		if(obj.getId_Papel().equals("")) {
 			dao.insert(obj);
 		}else {
 			dao.update(obj);
 		}
+	}
+	
+	public void remove(Papel obj) {
+		dao.deleteById(Integer.parseInt(obj.getId_Papel()));
 	}
 }

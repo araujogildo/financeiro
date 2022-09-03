@@ -7,7 +7,7 @@ public class Papel implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	private Integer id_Papel;
+	private String id_Papel;
 	private String tx_Papel;
 	private String tx_Descricao;
 	private String tx_RamoNegocios;
@@ -17,7 +17,7 @@ public class Papel implements Serializable{
 	public Papel() {
 	}
 	
-	public Papel(Integer id_Papel, String tx_Papel, String tx_Descricao, String tx_RamoNegocios, String dt_Cadastro,
+	public Papel(String id_Papel, String tx_Papel, String tx_Descricao, String tx_RamoNegocios, String dt_Cadastro,
 			Integer id_Resp) {
 		this.id_Papel = id_Papel;
 		this.tx_Papel = tx_Papel;
@@ -27,11 +27,11 @@ public class Papel implements Serializable{
 		this.id_Resp = id_Resp;
 	}
 
-	public Integer getId_Papel() {
+	public String getId_Papel() {
 		return id_Papel;
 	}
 
-	public void setId_Papel(Integer id_Papel) {
+	public void setId_Papel(String id_Papel) {
 		this.id_Papel = id_Papel;
 	}
 

@@ -5,7 +5,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import db.DbException;
 import gui.listeners.DataChangeListener;
@@ -20,6 +22,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.entities.Papel;
+import model.exception.ValidationException;
 import model.services.PapelService;
 
 public class PapelFormController implements Initializable {
@@ -30,6 +33,8 @@ public class PapelFormController implements Initializable {
 	private Papel entity; //entity - para generalizar
 	private PapelService service;
 	
+	private int countError = 0;
+	
 	private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
 	
 	@FXML
@@ -39,7 +44,7 @@ public class PapelFormController implements Initializable {
 	@FXML
 	private TextField txtDescricao; 
 	@FXML
-	private TextField txtRamoNegocio; 
+	private TextField txtRamoNegocios; 
 	
 	@FXML
 	private Label lblErrName;
@@ -53,6 +58,10 @@ public class PapelFormController implements Initializable {
 	@FXML
 	private Button btnCancelar; 
 
+	public void setTxtIdPapelInvisible() {//Teste
+		txtIdPapel.setVisible(false);
+	}
+	
 	public void setPapel(Papel entity) {
 		this.entity = entity;
 	}
@@ -67,25 +76,29 @@ public class PapelFormController implements Initializable {
 	
 	@FXML
 	public void onBtnSalvarAction(ActionEvent event) {
+		countError = 0;
+		
 		if(entity == null) {
 			throw new IllegalStateException("Entity was null");
 		}
-		
 		if(service == null) {
 			throw new IllegalStateException("Service was null");
 		}
-		
 		try {
 			entity = getFormData();
 			service.saveOrUpdate(entity);
-			
 			notifyDataChangeListeners();
-			
-			Utils.currentStage(event).close();
+			//Utils.currentStage(event).close();
+		}catch(ValidationException e) {
+			countError = 1;
+			setErrorMessages(e.getErrors());
 		}catch(DbException e) {
+			countError = 1;
 			Alerts.showAlert("error saving object", null, e.getMessage(), AlertType.ERROR);
 		}
-		Utils.currentStage(event).close();
+		if(countError == 0) {
+			Utils.currentStage(event).close();
+		}
 	}
 	
 	//subject
@@ -98,20 +111,31 @@ public class PapelFormController implements Initializable {
 	private Papel getFormData() {
 		Papel obj = new Papel();
 		
-		Integer idPapel = 0;
+		ValidationException exception = new ValidationException("Validation error");
+		
+		String idPapel = "";
 		//alterar: associar ao usuário logado
 		Integer idResp = 1368;
 		Date dtCadastro = new Date();
+				
+		if(!txtIdPapel.getText().isEmpty() && !txtIdPapel.getText().trim().equals("")) {
+			idPapel = txtIdPapel.getText();
+		}
 		
+		obj.setId_Papel(idPapel);
 		
-		if(!txtIdPapel.getText().isEmpty() &&  txtIdPapel.getText() != "") {
-			idPapel = Integer.parseInt(txtIdPapel.getText());
+		if(txtPapel.getText() == null || txtPapel.getText().trim().equals("")) {
+			exception.addError("txtPapel", "O Campo não pode ser vazio!");
+		}
+		
+		if(exception.getErrors().size() > 0) {
+			throw exception;
 		}
 		
 		obj.setId_Papel(idPapel);
 		obj.setTx_Papel(txtPapel.getText());
 		obj.setTx_Descricao(txtDescricao.getText());
-		obj.setTx_RamoNegocios(txtRamoNegocio.getText());
+		obj.setTx_RamoNegocios(txtRamoNegocios.getText());
 		obj.setId_Resp(idResp);
 		obj.setDt_Cadastro(sdf.format(dtCadastro));
 		return obj;
@@ -124,13 +148,14 @@ public class PapelFormController implements Initializable {
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {	
+		setTxtIdPapelInvisible();//
 		initializeNodes();
 	}
 	
 	private void initializeNodes() {
 		Constraints.setTextFieldMaxLength(txtPapel, 5);
 		Constraints.setTextFieldMaxLength(txtDescricao, 30);
-		Constraints.setTextFieldMaxLength(txtRamoNegocio, 50);
+		Constraints.setTextFieldMaxLength(txtRamoNegocios, 50);
 		
 		Constraints.setTextFieldUCase(txtPapel);
 	}
@@ -139,9 +164,19 @@ public class PapelFormController implements Initializable {
 		if(entity == null) {
 			throw new IllegalStateException("Entity was null");
 		}
+		txtIdPapel.setText(entity.getId_Papel());
 		txtPapel.setText(entity.getTx_Papel());
 		txtDescricao.setText(entity.getTx_Descricao());
-		txtRamoNegocio.setText(entity.getTx_RamoNegocios());
+		txtRamoNegocios.setText(entity.getTx_RamoNegocios());
+	}
+	
+	private void setErrorMessages(Map<String, String> errors) {
+		Set<String> fields = errors.keySet();
+		
+		if(fields.contains("txtPapel")) {
+			lblErrName.setText(errors.get("txtPapel"));
+		}
+		
 	}
 
 }

@@ -35,7 +35,7 @@ public class PapelDaoJDBC implements PapelDao {
 			if (rs.next()) {
 				Papel obj = new Papel();
 				
-				obj.setId_Papel(rs.getInt("Id_Papel"));
+				obj.setId_Papel(rs.getString("Id_Papel"));
 				obj.setTx_Papel(rs.getString("Papel"));
 				obj.setTx_Descricao(rs.getString("Descricao"));
 				obj.setTx_RamoNegocios(rs.getString("RamoNegocios"));
@@ -70,7 +70,7 @@ public class PapelDaoJDBC implements PapelDao {
 			while (rs.next()) {
 				Papel obj = new Papel();
 				
-				obj.setId_Papel(rs.getInt("Id_Papel"));
+				obj.setId_Papel(rs.getString("Id_Papel"));
 				obj.setTx_Papel(rs.getString("Papel"));
 				obj.setTx_Descricao(rs.getString("Descricao"));
 				obj.setTx_RamoNegocios(rs.getString("Ramo_Negocios"));	
@@ -113,7 +113,7 @@ public class PapelDaoJDBC implements PapelDao {
 			if (rowsAffected > 0) {
 				ResultSet rs = st.getGeneratedKeys();
 				if (rs.next()) {
-					int id = rs.getInt(1);
+					String id = rs.getString(1);
 					obj.setId_Papel(id);
 				}
 			}
@@ -135,7 +135,7 @@ public class PapelDaoJDBC implements PapelDao {
 		try {
 			st = conn.prepareStatement(
 				"UPDATE papel " +
-				"SET Papel = ?, Descricao = ?, RamoNegocios = ?, Dt_Cadastro = ?, Id_Resp = ? " +
+				"SET Papel = ?, Descricao = ?, Ramo_Negocios = ?, Dt_Cadastro = ?, Id_Resp = ? " +
 				"WHERE Id_Papel = ?");
 			
 			st.setString(1, obj.getTx_Papel());
@@ -144,7 +144,7 @@ public class PapelDaoJDBC implements PapelDao {
 			st.setString(4,  obj.getDt_Cadastro());
 			st.setInt(5, obj.getId_Resp());
 			
-			st.setInt(6, obj.getId_Papel());
+			st.setString(6, obj.getId_Papel());
 
 			st.executeUpdate();
 		}

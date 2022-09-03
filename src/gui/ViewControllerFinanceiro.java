@@ -7,6 +7,8 @@ import java.util.function.Consumer;
 
 import application.Main;
 import gui.util.Alerts;
+import gui.util.Utils;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -35,6 +37,8 @@ public class ViewControllerFinanceiro implements Initializable {
 	private MenuItem mnuConsRecbtos;
 	@FXML
 	private MenuItem mnuAjudaSobre;
+	@FXML
+	private MenuItem mnuSair;
 
 	@FXML
 	public void onMnuCadPapeisAction() {
@@ -72,6 +76,11 @@ public class ViewControllerFinanceiro implements Initializable {
 	@FXML
 	public void onMnuAjudaSobre() {
 		loadView("/gui/Sobre.fxml", x -> {});
+	}
+	
+	@FXML
+	public void onMnuSair(ActionEvent event) {
+		Utils.currentStage(event).close();
 	}
 
 	@Override
