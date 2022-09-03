@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
+import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
 import javafx.collections.FXCollections;
@@ -26,7 +27,7 @@ import javafx.stage.Stage;
 import model.entities.Papel;
 import model.services.PapelService;
 
-public class PapelListController implements Initializable{
+public class PapelListController implements Initializable, DataChangeListener{
 	
 	private PapelService service;
 	
@@ -50,7 +51,8 @@ public class PapelListController implements Initializable{
 	@FXML
 	public void onBtnAdicionarAction(ActionEvent event) {
 		Stage parentStage = Utils.currentStage(event);
-		createDialogForm("/gui/PapelForm.fxml", parentStage);
+		Papel obj = new Papel();
+		createDialogForm(obj, "/gui/PapelForm.fxml", parentStage);
 	}
 	
 	//injeção de dependência na classe PapelService
@@ -88,10 +90,16 @@ public class PapelListController implements Initializable{
 		tableViewPapel.setItems(obsList);
 	}
 	
-	private void createDialogForm(String absoluteName, Stage parentStage) {
+	private void createDialogForm(Papel obj, String absoluteName, Stage parentStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
+			
+			PapelFormController controller = loader.getController();
+			controller.setPapel(obj);
+			controller.setPapelService(new PapelService());
+			controller.subscribeDataChangeListener(this);
+			controller.updateFormData();
 			
 			//um palco na frente do outro
 			Stage dialogStage = new Stage();
@@ -105,6 +113,11 @@ public class PapelListController implements Initializable{
 		}catch(IOException e) {
 			Alerts.showAlert("IOException", "Error loading view", e.getMessage(), AlertType.ERROR);
 		}
+	}
+
+	@Override
+	public void onDataChanged() {
+		updateTableView();
 	}
 
 }

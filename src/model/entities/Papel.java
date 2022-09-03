@@ -16,8 +16,9 @@ public class Papel implements Serializable{
 	
 	public Papel() {
 	}
-
-	public Papel(Integer id_Papel, String tx_Papel, String tx_Descricao, String tx_RamoNegocios, String dt_Cadastro, Integer id_Resp) {
+	
+	public Papel(Integer id_Papel, String tx_Papel, String tx_Descricao, String tx_RamoNegocios, String dt_Cadastro,
+			Integer id_Resp) {
 		this.id_Papel = id_Papel;
 		this.tx_Papel = tx_Papel;
 		this.tx_Descricao = tx_Descricao;
@@ -25,16 +26,15 @@ public class Papel implements Serializable{
 		this.dt_Cadastro = dt_Cadastro;
 		this.id_Resp = id_Resp;
 	}
-	
-	public Integer getId_Papel(int i) {
+
+	public Integer getId_Papel() {
 		return id_Papel;
 	}
 
-	public void setId_Papel(int id_Papel) {
+	public void setId_Papel(Integer id_Papel) {
 		this.id_Papel = id_Papel;
 	}
 
-	
 	public String getTx_Papel() {
 		return tx_Papel;
 	}
@@ -71,7 +71,7 @@ public class Papel implements Serializable{
 		return id_Resp;
 	}
 
-	public void setId_Resp(int id_Resp) {
+	public void setId_Resp(Integer id_Resp) {
 		this.id_Resp = id_Resp;
 	}
 

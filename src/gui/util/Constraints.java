@@ -36,5 +36,14 @@ public class Constraints {
 	    });
 	}
 	
+	public static void setTextFieldUCase(TextField txt) {
+		txt.textProperty().addListener((obs, oldValue, newValue) -> {
+		    	if (newValue != null && newValue!= newValue.toUpperCase()) {
+                    txt.setText(newValue.toUpperCase());
+                }
+		    });
+	}
+
+	
 	
 }

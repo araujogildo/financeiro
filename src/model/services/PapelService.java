@@ -11,7 +11,14 @@ public class PapelService {
 	private PapelDao dao = DaoFactory.createPapelDao();
 		
 	public List<Papel> findAll(){
-	
 		return dao.findAll();
+	}
+	
+	public void saveOrUpdate(Papel obj) {
+		if(obj.getId_Papel() == 0) {
+			dao.insert(obj);
+		}else {
+			dao.update(obj);
+		}
 	}
 }

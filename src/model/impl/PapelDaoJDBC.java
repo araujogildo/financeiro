@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,8 +58,6 @@ public class PapelDaoJDBC implements PapelDao {
 	@Override
 	public List<Papel> findAll() {
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
@@ -76,8 +73,9 @@ public class PapelDaoJDBC implements PapelDao {
 				obj.setId_Papel(rs.getInt("Id_Papel"));
 				obj.setTx_Papel(rs.getString("Papel"));
 				obj.setTx_Descricao(rs.getString("Descricao"));
-				obj.setTx_RamoNegocios(rs.getString("Ramo_Negocios"));			
-				obj.setDt_Cadastro(sdf.format(rs.getDate("Dt_Cadastro")).concat(" " + rs.getTime("Dt_Cadastro")));
+				obj.setTx_RamoNegocios(rs.getString("Ramo_Negocios"));	
+				//obj.setDt_Cadastro(sdf.format(rs.getDate("Dt_Cadastro")).concat(" " + rs.getTime("Dt_Cadastro")));
+				obj.setDt_Cadastro(rs.getString("Dt_Cadastro"));
 				obj.setId_Resp(rs.getInt("Id_Resp"));
 				
 				list.add(obj);
@@ -99,15 +97,16 @@ public class PapelDaoJDBC implements PapelDao {
 		try {
 			st = conn.prepareStatement(
 				"INSERT INTO papel " +
-				"(Papel, RamoNegocios, Dt_Cadastro, Id_Resp) " +
+				"(Papel, Descricao, Ramo_Negocios, Dt_Cadastro, Id_Resp) " +
 				"VALUES " +
-				"(?, ?, ?, ?)", 
+				"(?, ?, ?, ?, ?)", 
 				Statement.RETURN_GENERATED_KEYS);
 
 			st.setString(1, obj.getTx_Papel());
-			st.setString(2, obj.getTx_RamoNegocios());
-			st.setString(3, obj.getDt_Cadastro());
-			st.setInt(4, obj.getId_Resp());
+			st.setString(2, obj.getTx_Descricao());
+			st.setString(3, obj.getTx_RamoNegocios());
+			st.setString(4, obj.getDt_Cadastro());
+			st.setInt(5, obj.getId_Resp());
 
 			int rowsAffected = st.executeUpdate();
 			
@@ -138,14 +137,14 @@ public class PapelDaoJDBC implements PapelDao {
 				"UPDATE papel " +
 				"SET Papel = ?, Descricao = ?, RamoNegocios = ?, Dt_Cadastro = ?, Id_Resp = ? " +
 				"WHERE Id_Papel = ?");
-
+			
 			st.setString(1, obj.getTx_Papel());
 			st.setString(2, obj.getTx_Descricao());
 			st.setString(3, obj.getTx_RamoNegocios());
-			st.setString(4, obj.getDt_Cadastro());
+			st.setString(4,  obj.getDt_Cadastro());
 			st.setInt(5, obj.getId_Resp());
 			
-			st.setInt(6, obj.getId_Papel(0));
+			st.setInt(6, obj.getId_Papel());
 
 			st.executeUpdate();
 		}

@@ -41,7 +41,6 @@ public class ViewControllerFinanceiro implements Initializable {
 		loadView("/gui/PapelList.fxml", (PapelListController controller) -> {
 			controller.setPapelService(new PapelService());
 			controller.updateTableView();
-		
 		});
 	}
 
@@ -89,7 +88,7 @@ public class ViewControllerFinanceiro implements Initializable {
 			
 			// mostrar a janela "Sobre.fxml" dentro da janela principal
 			
-			//   1- Obtem a janela principal
+			// 1- Obtem a janela principal
 			Scene mainScene = Main.getMainScene();
 			VBox mainVBox =   (VBox) ((ScrollPane) mainScene.getRoot()).getContent();
 			
@@ -101,7 +100,7 @@ public class ViewControllerFinanceiro implements Initializable {
 			// adicionar os filhos do VBox da janela "Sobre"
 			mainVBox.getChildren().addAll(newVBox.getChildren());
 			
-			//executa a função passada como parâmetro
+			// executa a função passada como parâmetro
 			T controller = loader.getController();
 			initializingAction.accept(controller); 
 				
