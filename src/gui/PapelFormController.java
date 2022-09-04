@@ -118,7 +118,7 @@ public class PapelFormController implements Initializable {
 		Integer idResp = 1368;
 		Date dtCadastro = new Date();
 				
-		if(!txtIdPapel.getText().isEmpty() && !txtIdPapel.getText().trim().equals("")) {
+		if(txtIdPapel.getText() != null) {
 			idPapel = txtIdPapel.getText();
 		}
 		

@@ -27,8 +27,8 @@
       <TableView fx:id="tableViewPapel" prefHeight="200.0" prefWidth="792.0">
         <columns>
           <TableColumn fx:id="tableColumnPapel" prefWidth="75.0" text="Papel" />
-          <TableColumn fx:id="tableColumnDescricao" prefWidth="300.0" text="Descrição" />
-            <TableColumn fx:id="tableColumnRamoNegocios" prefWidth="211.0" text="Ramo/Atividade" />
+          <TableColumn fx:id="tableColumnDescricao" prefWidth="250.0" text="Descrição" />
+            <TableColumn fx:id="tableColumnRamoNegocios" prefWidth="150.0" text="Ramo/Atividade" />
             <TableColumn fx:id="tableColumnDtCadastro" prefWidth="117.0" text="Data Cadastro" />
             <TableColumn fx:id="tableColumnEdit" prefWidth="75.0" />
             <TableColumn fx:id="tableColumnRemove" prefWidth="75.0" />
